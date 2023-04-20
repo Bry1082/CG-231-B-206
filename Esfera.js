@@ -20,36 +20,36 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 //Creacion de la esfera 
 R=1; //radio de la esfera
+const color= new THREE.Color("rgb(209, 213, 136)");
 
-var geometry = new THREE.SphereGeometry(R, 14, 32 );
-var material = new THREE.MeshPhongMaterial( { color: 0xCC99FF } );
+var geometry = new THREE.SphereGeometry(R, 20, 32 );
+var material = new THREE.MeshMatcapMaterial( { color } );
 var sphere = new THREE.Mesh( geometry, material );
 scene.add( sphere );
 
-vp=[0,0,0]; //Posicicion icnicial de la esfera 
+//Parametrizacion de las Variables Globlales
 Sx=0.5;
 Sy=0.5;
 Sz=3;
-Esferafinal(sphere,vp,Rx,Ry,Rz,Sx,Sy,Sz,Tx,Ty,Tz);
-
- 
-
-/*cone.position.set(0,0,r+r/2); // Se pone el cono en z
-geometry.rotateX(Math.PI/2);  //rota en x 45 grados
-geometry.rotateY(Math.PI/2); //rota en y 45 grados
-
-geometry.translate(r+r/2,r,-(r+r/2)); //lo transalada en el eje x 
-geometry.rotateZ(-Math.atan(r/h)); //calculo el angulo en radianes para rotarolo*/
+Rx=-Math.PI/2;
+Ry=Math.PI/4;
+Rz=-Math.PI/4;
+Tx=0;
+Ty=0;
+Tz=(R*Sz);
 
 //Transformaciones de la esfera
 
-
-
-/*geometry.rotateX(Math.PI/2);  //rota en x 45 grados
-geometry.rotateY(Math.PI/2); //rota en y 45 grados
-
-geometry.translate(r+r/2,r,-(r+r/2)); //lo transalada en el eje x 
-geometry.rotateZ(-Math.atan(r/h)); //calculo el angulo en radianes para rotarolo*/  
+sphere.position.set(0,0,0); // Se posiciona en el centro
+//1.Se escala para dar la primera forma (e)
+EscaladoReal(geometry,Sx,Sy,Sz);
+//2.Se rota en el origen para que quede en los mismo angulos de la rotacion de la figura (f)
+console.log("Ry="+Ry);
+Rotacionx(sphere,Rx);
+Rotacionz(sphere,Rz);
+Rotaciony(sphere,Ry);
+//3.Se translada para  que una esquina quede en el centro
+TranslacionReal(geometry,Tx,Ty,Tz);
 
 
 //Luz
